@@ -1,17 +1,14 @@
-import {
-    makeExecutableSchema
-} from "graphql-tools";
-
 import typeDefs from "./types/types";
 import Mutation from "./resolvers/Mutation";
 import Query from "./resolvers/Query";
+import {
+    ApolloServer
+} from 'apollo-server-express';
 
-const schema = makeExecutableSchema({
+export default new ApolloServer({
     typeDefs,
     resolvers: {
-        Mutation,
-        Query
+        Query,
+        Mutation
     }
 });
-
-export default schema;
