@@ -3,7 +3,7 @@ import expressGraphQL from 'express-graphql';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import server from './graphql/server';
+import schema from './graphql/graphql';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -14,10 +14,9 @@ mongoose.connect(mongoURL, {
     useNewUrlParser: true
 }).then(() => console.log("MongoDB connected!")).catch(err => console.log(err));
 
-app.use(cors(), bodyParser.json());
+app.use('/graphql', cors(), bodyParser.json(), expressGraphQL({
+    schema,
+    graphiql: true
+}));
 
-server.applyMiddleware({
-    app
-});
-
-app.listen(PORT, () => console.log(`Server is running on http://127.0.0.1:${PORT}${server.graphqlPath}`));
+app.listen(PORT, () => console.log(`Server is running on http://127.0.0.1:${PORT}`));
