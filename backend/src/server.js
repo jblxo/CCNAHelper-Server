@@ -4,6 +4,7 @@ import typeDefs from './schema';
 import Mutation from './resolvers/Mutation';
 import Query from './resolvers/Query';
 import Module from './models/Module';
+import Question from './models/Question';
 
 const MONGO_URL =
   process.env.MONGO_URL || 'mongodb://localhost:27017/ccnahelper';
@@ -26,6 +27,7 @@ export default new ApolloServer({
   },
   context: ({ req }) => ({
     ...req,
-    Module
+    Module,
+    Question
   })
 });
